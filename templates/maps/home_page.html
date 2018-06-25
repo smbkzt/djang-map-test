@@ -1,0 +1,37 @@
+{% extends "../base.html" %}
+{%block content%}
+    <div class="row">
+        <div class="col-md-6">
+            <form class="new-location-form" method="POST">
+                <h3>Add new location on a map</h3>
+                {% csrf_token %}
+                <div class="form-group">
+                    <label for="Dot name">Name of the location</label>
+                    <input type="text" class="form-control" id="name" placeholder="Enter location name" name="name">
+                </div>
+                <div class="form-group">
+                    <label for="latitude">Latitude</label>
+                    <input type="text" class="form-control" id="latitude" placeholder="Enter latitude" name="latitude">
+                </div>
+                <div class="form-group">
+                    <label for="longitute">Longitute</label>
+                    <input type="text" class="form-control" id="longitute" placeholder="Enter longitute" name="longitute">
+                </div>
+
+                <button type="submit" class="btn btn-primary">Submit</button>
+            </form>
+        </div>
+
+        <div class="col-md-6">
+            <div class="list-group dots">
+                <h3>All locations</h3>
+                {%if all_dots%}
+                    {%for dot in all_dots%}
+                        <a href="{% url 'get_dot' dot.id %}" class="list-group-item"> {{ forloop.counter }} {{dot.name}} </a> <br>
+                    {%endfor%}
+                {%endif%}
+            </div>
+        </div>
+    </div>
+{%endblock%}
+

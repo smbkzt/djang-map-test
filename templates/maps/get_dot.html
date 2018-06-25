@@ -1,0 +1,64 @@
+{% extends "../base.html" %}
+{%block content%}
+{%if dot%}
+    <div class="row">
+        <div class="col-md-3"></div>
+        <div class="col-md-6 location-data">
+            <h4>Name of the location: {{dot.name}}</h4>
+            <h5>Coordinates: {{dot.longitute}}, {{dot.latitute}}</h5>
+        </div>
+        <div class="col-md-3"></div>
+    </div>
+
+    <div id="map"> </div>
+
+    <script src="https://api-maps.yandex.ru/2.1/?lang=en_US" type="text/javascript"></script>
+    <script type="text/javascript">
+        ymaps.ready(init);
+        var latitude = '{{dot.latitute}}';
+        var longitute = "{{dot.longitute}}";
+        var name = '{{dot.name}}';
+        var myMap, myPlacemark;
+
+        function init(){
+            myMap = new ymaps.Map("map", {
+                center: [latitude, longitute],
+                zoom: 4
+        });
+
+        myPlacemark = new ymaps.Placemark([latitude, longitute], { hintContent: name, balloonContent: name
+            });
+
+            myMap.geoObjects.add(myPlacemark);
+        }
+    </script>
+
+
+    <!--Google maps-->
+    <!--<script>
+        function initMap() {
+            var latitude = '{{dot.latitute}}';
+            var longitute = "{{dot.longitute}}"
+
+            var myLatLng = {lat: parseFloat(latitude), lng: parseFloat(longitute)};
+
+            // Create a map object and specify the DOM element
+            // for display.
+            var map = new google.maps.Map(document.getElementById('map'), {
+            center: myLatLng,
+            zoom: 4
+            });
+
+            // Create a marker and set its position.
+            var marker = new google.maps.Marker({
+            map: map,
+            position: myLatLng,
+            title: '{{dot.name}}'
+            });
+        }
+    </script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCLz5hUizObt41WZnwe4cubgdH6I_UV3TY&callback=initMap" async defer></script>
+
+    -->
+{%endif%}
+{%endblock%}
