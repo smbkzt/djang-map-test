@@ -34,4 +34,4 @@ def get_dot(request, dot_id):
         }
         return render(request, "maps/get_dot.html", context=context)
     else:
-        return HomePage
+        return redirect("/")
